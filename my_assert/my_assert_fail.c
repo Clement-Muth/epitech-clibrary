@@ -6,16 +6,20 @@
 */
 
 #include "include/my_assert.h"
+#undef my_assert_fail
+#ifndef __assertfail
+#define __assertfail
+#endif /*__assertfail*/
 
 void
-my_assert_fail(const char *restrict assertion, const char *restrict file,
-    unsigned line, const char *restrict function)
+__assertfail(char *restrict __assertion, char *restrict __file,
+unsigned __line, const char *__function)
 {
-    #ifdef DNBDEBUG
-        my_printf("%s: %s:%d: %s '%s' failed\n", file, function, line,
+    #ifdef DEBUG
+        printf("%s: %s:%d: %s '%s' failed\n", file, function, line,
             "Assertion", assertion);
-        abort();
     #else
-        my_printf("An error occured - Please try again\nAbandon\n");
+        write(2, "An error occured - Please try again\nAbandon\n", 45);
     #endif
+    exit(84);
 }

@@ -13,26 +13,21 @@
 ///
 ////////////////////////////////////////////////////////////
 #include <stdlib.h>
-#include "../../my_printf/include/my_printf.h"
+#include <unistd.h>
+#include <stdbool.h>
 
-#if defined __cplusplus && __GNUC_PREREQ(2,95)
-# define __VOID_CAST static_cast<void>
+#if defined __cplusplus && __GNUC_PREREQ(2, 95)
+#define __VOID_CAST static_cast<void>
 #else
-# define __VOID_CAST (void)(0)
+#define __VOID_CAST (void)(0)
 #endif
 
-#define DNBDEBUG 1
+#define my_assert(expr) ((expr) ? __VOID_CAST : my_assert_fail(#expr, \
+__FILE__, __LINE__, __func__))
 
-#define my_assert(expr) ((expr) ? __VOID_CAST : my_assert_fail(#expr, __FILE__,\
-    __LINE__, __func__))
-
-////////////////////////////////////////////////////////////
-/// \brief Evalue the expr and abort if it's true
-///
-/// \return void
-////////////////////////////////////////////////////////////
-extern void my_assert_fail(const char *assertion, const char *file,
-            unsigned line, const char *function)
-            __THROW __attribute__ ((__noreturn__));
+/* Evalue the expr and abort if it's true */
+void my_assert_fail(char *restrict __assertion, char *restrict __file,
+unsigned __line, const char *__function)
+            __attribute__ ((__noreturn__))
 
 #endif /* !MY_ASSERT_H_ */

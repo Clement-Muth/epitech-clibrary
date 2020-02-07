@@ -16,7 +16,7 @@ LIB 				= libmy_assert.a
 
 SRC 				=	$(wildcard *.c)
 
-CFLAGS 				= -Wall -I./include
+CFLAGS 				= -Wall -I./include -DDEBUG
 
 CC					= @gcc
 
@@ -30,11 +30,13 @@ INCLUDE 			= ./include
 
 REMOTE_INCLUDE 		= ../../include/main/my_assert/
 
-INCLUDE_FILE		= my.h
+INCLUDE_FILE		= my_assert.h
 
 LIB_OBJ 			= $(SRC:.c=.o)
 
 all:				$(LIB)
+					@$(CP) $(LIB) ../$(LIB)
+					@$(CP) $(INCLUDE)/$(INCLUDE_FILE) $(REMOTE_INCLUDE)
 					@$(RM) $(LIB_OBJ)
 					@$(call SUCCESS, "[ OK ] libmy_assert library has been copied.")
 					@$(call DONE, "[ DONE 100% ]")
