@@ -8,7 +8,7 @@
 #include "include/my_assert.h"
 #undef my_assert_fail
 #ifndef __assertfail
-#define __assertfail
+#define __assertfail my_assert_fail
 #endif /*__assertfail*/
 
 void
